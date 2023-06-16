@@ -11,7 +11,8 @@ https://github.com/mohammadAsadolahi
 **this repo will be updated and the code will be ready before july 2023**
 ### to do:  
 * [****Done!****] write the ReplayBuffer code  [****Done!****]  
-* write the Agnet code in tensorflow  
-* write the Environmetn class code  
-* write the main learning looop  
+* [****Done!****] deploy Action space generation code [****Done!****]  
+* deploy the Agnet in tensorflow  
+* deploy the Environmetn class  
+* deploy the main learning looop  
 
