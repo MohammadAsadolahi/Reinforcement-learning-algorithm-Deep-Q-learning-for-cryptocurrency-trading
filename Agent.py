@@ -20,15 +20,15 @@ class DQNAgent :
         
     def _build_model(self):
         model = Sequential()
-        model.add(Conv1D(64,8, input_shape=(self.state_size,1), padding='same'))
+        model.add(Conv1D(128,8, input_shape=(self.state_size,1), padding='same'))
         model.add(LeakyReLU())
         model.add(MaxPooling1D(2, padding='same'))
         model.add(Conv1D(64,8, padding='same'))
         model.add(LeakyReLU())
         model.add(Flatten())
-        model.add(Dense(768))
+        model.add(Dense(512))
         model.add(Activation('relu'))
-        model.add(Dense(150))
+        model.add(Dense(256))
         model.add(Activation('relu'))
         model.add(Dense(self.action_size, activation='linear')) 
         model.compile(loss="mse", optimizer=Adam(lr=self.learning_rate), metrics=['accuracy'])
