@@ -34,15 +34,9 @@ plt.plot(closing_price['BTC-USD'])
 # Generate the action space
 import gym
 from gym import spaces
-action_choices = np.linspace(0.5, 20, num=25) # using linespace to generate 25 actions to buy or sell in [0.5$,20$] interval
-actions = []
-actions.append(0.0) # add 0 choice to actions for hold
-for act in action_choices:
-    actions.append(act) # add positive number to buy x amount
-    actions.append(-act) # add negative number to sell x amount
-actions.sort()
-
+action_choices = np.linspace(-20, 20, num=51) # using linespace to generate 25 actions to buy or sell in [0.5$,20$] interval
+print(action_choices)
 plt.xlabel("action id")
 plt.ylabel("action value")
 plt.title(f"generated discrete action space")
-plt.scatter([act for act in range(len(actions))],actions)
+plt.scatter([act for act in range(len(action_choices))],action_choices)
