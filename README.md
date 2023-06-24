@@ -12,7 +12,7 @@ https://github.com/mohammadAsadolahi
 ### to do:  
 * [****Done!****] write the ReplayBuffer code  [****Done!****]  
 * [****Done!****] deploy Action space generation code [****Done!****]  
-* deploy the Agnet in tensorflow  
+* [****Done!****] deploy the Agnet in tensorflow [****Done!****]  
 * deploy the Environmetn class  
 * deploy the main learning looop  
 
