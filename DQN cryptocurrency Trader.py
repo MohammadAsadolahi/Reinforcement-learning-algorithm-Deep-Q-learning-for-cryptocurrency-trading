@@ -66,14 +66,15 @@ class TradingEnv(gym.Env) :
     
     def step(self, action):
         stock_price = self.stock_price_history[self.current_step+self.window_size]
-        portfolio_value=(self.capital + self.stock * stock_price)
+        portfolio_value = (self.capital + self.stock * stock_price) # total portfolio value including cash and stocks
         if action > 0 and action <= self.capital :
             self.capital -= action
             self.stock += action/stock_price
         elif action < 0 and (self.stock * stock_price)>(-action):
             self.stock += action/stock_price                        
             self.capital -= action
-        reward = (self.capital + self.stock * self.stock_price_history[self.current_step+self.window_size+1]) - portfolio_value
+        new_portfolie_value = self.capital + self.stock * self.stock_price_history[self.current_step+self.window_size+1]
+        reward = new_portfolie_value - portfolio_value  # reward = protfolio value after commiting action - portfolio before commiting action
         self.current_step += 1
-        done = self.current_step+self.window_size + 2 >= len(self.stock_price_history)
-        return self._next_observation(), reward, done, (self.capital + self.stock * self.stock_price_history[self.current_step+self.window_size+1])
+        done = self.current_step+self.window_size + 2 >= len(self.stock_price_history) # if we will reach the end of price series in next step of the environment
+        return self._next_observation(), reward, done, new_portfolie_value # new_portfolie_value is returned due to track agent progress and its optional to log progress only
