@@ -42,3 +42,37 @@ plt.xlabel("action id")
 plt.ylabel("action value")
 plt.title(f"generated discrete action space")
 plt.scatter([act for act in range(len(action_choices))],action_choices)
+
+
+class TradingEnv(gym.Env) :
+    def __init__(self, init_capital=2000, stock_price_history=[], window_size=30):
+        self.init_capital = init_capital #amount of money we have at the initial step
+        self.stock = 0
+        self.stock_price_history = stock_price_history
+        self.window_size = window_size
+        self.current_step = 0
+        self.reset()
+        
+    def reset(self) :
+        self.current_step = 0
+        self.stock = 0
+        self.capital = self.init_capital
+        return self._next_observation()
+    
+    def _next_observation(self):
+        prices = self.stock_price_history[self.current_step:self.current_step+self.window_size]
+        return np.array(prices)
+    
+    def step(self, action):
+        stock_price = self.stock_price_history[self.current_step+self.window_size]
+        portfolio_value=(self.capital + self.stock * stock_price)
+        if action > 0 and action <= self.capital :
+            self.capital -= action
+            self.stock += action/stock_price
+        elif action < 0 and (self.stock * stock_price)>(-action):
+            self.stock += action/stock_price                        
+            self.capital -= action
+        reward = (self.capital + self.stock * self.stock_price_history[self.current_step+self.window_size+1]) - portfolio_value
+        self.current_step += 1
+        done = self.current_step+self.window_size + 2 >= len(self.stock_price_history)
+        return self._next_observation(), reward, done, (self.capital + self.stock * self.stock_price_history[self.current_step+self.window_size+1])
