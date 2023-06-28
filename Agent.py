@@ -26,7 +26,7 @@ class DQNAgent :
         model.add(Conv1D(64,8, padding='same'))
         model.add(LeakyReLU())
         model.add(Flatten())
-        model.add(Dense(512))
+        model.add(Dense(384))
         model.add(Activation('relu'))
         model.add(Dense(256))
         model.add(Activation('relu'))
