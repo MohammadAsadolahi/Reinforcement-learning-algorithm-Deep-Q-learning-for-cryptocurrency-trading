@@ -47,10 +47,10 @@ plt.scatter([act for act in range(len(action_choices))],action_choices)
 class TradingEnv(gym.Env) :
     def __init__(self, init_capital=2000, stock_price_history=[], window_size=30):
         self.init_capital = init_capital #amount of money we have at the initial step
-        self.stock = 0
-        self.stock_price_history = stock_price_history
-        self.window_size = window_size
-        self.current_step = 0
+        self.stock = 0 # initial amount of stock we have (eg. 0 Bitcoin at start)
+        self.stock_price_history = stock_price_history # the full series of stock or currency values 
+        self.window_size = window_size # amount of data we look at to predict the next price
+        self.current_step = 0 # the inital location to start
         self.reset()
         
     def reset(self) :
