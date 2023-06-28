@@ -56,11 +56,12 @@ class TradingEnv(gym.Env) :
     def reset(self) :
         self.current_step = 0
         self.stock = 0
-        self.capital = self.init_capital
-        return self._next_observation()
+        self.capital = self.init_capital #initial current capitaql to initial_capital
+        return self._next_observation() # return the first observation
     
     def _next_observation(self):
-        prices = self.stock_price_history[self.current_step:self.current_step+self.window_size]
+        prices = self.stock_price_history[self.current_step:self.current_step+self.window_size] 
+        #return the price seris according to current place and up to window_size eg. [23 to 23 + 30]
         return np.array(prices)
     
     def step(self, action):
