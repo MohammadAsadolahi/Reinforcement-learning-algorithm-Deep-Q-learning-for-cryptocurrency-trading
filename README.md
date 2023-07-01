@@ -8,11 +8,10 @@ Mohammad.E.Asadolahi@gmail.com
 https://github.com/mohammadAsadolahi  
 
 **this code is not implemented with Pytorch! for Pytorch version look up my Github repositories**
-**this repo will be updated and the code will be ready before july 2023**
 ### to do:  
 * [****Done!****] write the ReplayBuffer code  [****Done!****]  
 * [****Done!****] deploy Action space generation code [****Done!****]  
 * [****Done!****] deploy the Agnet in tensorflow [****Done!****]  
-* deploy the Environmetn class  
+* [****Done!****] deploy the Environmetn class  [****Done!****] 
 * deploy the main learning looop  
 
