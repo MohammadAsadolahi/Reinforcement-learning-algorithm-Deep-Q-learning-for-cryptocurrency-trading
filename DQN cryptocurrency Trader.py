@@ -92,4 +92,26 @@ test_env = TradingEnv(stock_price_history=test_prices)
 state_size = train_env.observation_space.shape[0]
 action_size = train_env.action_space.n
 
-agent1 = DQNAgent(state_size, action_size,batch_size=50,update_target_interval=100)
+agent = DQNAgent(state_size, action_size,batch_size=50,update_target_interval=100)
+
+#main loop
+agent1_value = []
+for e in range(10):
+    state = train_env.reset()
+    done = False
+    score = 0
+    steps=0
+    while not done:
+        action = agent.act(state)
+        next_state, reward, done ,value = train_env.step(actions[action][1])
+        agent.remember(state, action, reward, next_state, done)
+        state = next_state
+        score += reward
+        agent_value.append(value)
+        steps+=1
+        if (steps%500)==0:
+            print(f"step{steps} value os far:{value}   cap:{train_env.capital} st:{train_env.stock} eps:{agent.epsilon}")
+            plt.plot(agent_value)
+            plt.show()
+        agent1.train(50)
+    print(f'Episode {e}, Score(total_reward): {score:.4f}')
