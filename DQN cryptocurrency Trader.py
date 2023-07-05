@@ -78,3 +78,18 @@ class TradingEnv(gym.Env) :
         self.current_step += 1
         done = self.current_step+self.window_size + 2 >= len(self.stock_price_history) # if we will reach the end of price series in next step of the environment
         return self._next_observation(), reward, done, new_portfolie_value # new_portfolie_value is returned due to track agent progress and its optional to log progress only
+
+
+# Split data into training and testing sets
+split_index = int(0.8 * len(closing_price))
+train_prices = closing_price[:split_index]
+test_prices = closing_price[split_index:]
+
+# Initialize the trading environment and DQN agent
+train_env= TradingEnv(stock_price_history=train_prices)
+test_env = TradingEnv(stock_price_history=test_prices)
+
+state_size = train_env.observation_space.shape[0]
+action_size = train_env.action_space.n
+
+agent1 = DQNAgent(state_size, action_size,batch_size=50,update_target_interval=100)
