@@ -51,8 +51,8 @@ train_prices = closing_price[:split_index]
 test_prices = closing_price[split_index:]
 
 # Initialize the trading environment and DQN agent
-train_env= TradingEnv(stock_price_history=train_prices)
-test_env = TradingEnv(stock_price_history=test_prices)
+train_env= TradingEnv(stock_price_history=train_prices,action_choices=action_choices)
+test_env = TradingEnv(stock_price_history=test_prices,action_choices=action_choices)
 
 state_size = train_env.observation_space.shape[0]
 action_size = train_env.action_space.n
