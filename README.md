@@ -13,5 +13,6 @@ https://github.com/mohammadAsadolahi
 * [****Done!****] deploy Action space generation code [****Done!****]  
 * [****Done!****] deploy the Agnet in tensorflow [****Done!****]  
 * [****Done!****] deploy the Environmetn class  [****Done!****] 
-* deploy the main learning looop  
+* [****Done!****] deploy the main learning looop  [****Done!****]
+* Deploy the test loop
 
