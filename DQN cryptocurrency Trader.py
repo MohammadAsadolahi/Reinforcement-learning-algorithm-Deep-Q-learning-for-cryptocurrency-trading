@@ -80,3 +80,29 @@ for e in range(10):
             plt.show()
         agent.train(50)
     print(f'Episode {e}, Score(total_reward): {score:.4f}')
+
+
+
+
+print("testing...")
+agent_value = []
+for e in range(1):
+    state = test_env.reset()
+    done = False
+    score = 0
+    steps=0
+    while not done:
+        action = agent.act(state)
+        next_state, reward, done ,value = test_env.step(action_choices[action])
+#         agent.remember(state, action, reward, next_state, done)
+        state = next_state
+        score += reward
+        agent_value.append(value)
+        steps+=1
+        if (steps%100)==0:
+            print(f"step{steps} value os far:{value}   cap:{train_env.capital} st:{train_env.stock} eps:{agent.epsilon}")
+            plt.plot(agent_value)
+            plt.show()
+#         agent.train(50)
+    print(f'Episode {e}, Score(total_reward): {score:.4f}')
+plt.plot(agent_value)
