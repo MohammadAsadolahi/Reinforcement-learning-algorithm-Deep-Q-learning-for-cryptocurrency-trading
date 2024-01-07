@@ -7,7 +7,7 @@ WRITTEN BY MOHAMMAD ASADOLAHI  [feel free to ask any question in Issues or just 
 Mohammad.E.Asadolahi@gmail.com  
 https://github.com/mohammadAsadolahi  
 
-**this code is not implemented with Pytorch! for Pytorch version look up my Github repositories**
+**this code is not implemented with Pytorch this project has been written in TensorFlow using Keras! for Pytorch version look up my Github repositories**
 ### to do:  
 * [****Done!****] write the ReplayBuffer code  [****Done!****]  
 * [****Done!****] deploy Action space generation code [****Done!****]  
