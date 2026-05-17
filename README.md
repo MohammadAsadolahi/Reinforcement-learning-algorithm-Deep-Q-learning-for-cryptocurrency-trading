@@ -10,7 +10,7 @@
 [![OpenAI Gym](https://img.shields.io/badge/OpenAI-Gym-0081A5?style=for-the-badge&logo=openai&logoColor=white)](https://gym.openai.com)
 [![License](https://img.shields.io/badge/License-Research-blueviolet?style=for-the-badge)]()
 
-*A production-grade reinforcement learning system that learns optimal cryptocurrency trading strategies directly from raw price data, combining temporal convolutional networks with Double Deep Q-Networks for stable, risk-aware portfolio optimization.*
+*A reinforcement learning system that learns cryptocurrency trading strategies from raw price data, combining 1D convolutional feature extraction with Double Deep Q-Networks for stable portfolio optimization.*
 
 <br>
 
@@ -22,9 +22,9 @@
 
 ## Executive Summary
 
-This repository implements an end-to-end **Deep Reinforcement Learning** pipeline for autonomous cryptocurrency trading. The system ingests live market data, processes temporal price patterns through a **1D Convolutional Neural Network**, and outputs optimal buy/sell/hold decisions via a **Double DQN** architecture — a technique that eliminates the well-known Q-value overestimation bias inherent in vanilla DQN approaches.
+This repository implements an end-to-end **Deep Reinforcement Learning** pipeline for cryptocurrency trading. The system processes historical market data, extracts temporal price patterns through a **1D Convolutional Neural Network**, and outputs buy/sell/hold decisions via a **Double DQN** architecture — a technique that reduces the Q-value overestimation bias inherent in vanilla DQN approaches.
 
-The agent is trained on hourly BTC-USD data and generalizes across volatile market regimes — bull runs, bear markets, and sideways consolidation — without requiring hand-crafted features, technical indicators, or domain-specific heuristics.
+The agent is trained on hourly BTC-USD data without requiring hand-crafted features, technical indicators, or domain-specific heuristics.
 
 > **Generalizability:** While demonstrated on BTC-USD, this framework is asset-agnostic — applicable to ETH, XRP, LTC, equities, forex, or any instrument with sequential price data.
 
@@ -77,7 +77,7 @@ This yields more stable training and more reliable convergence in the non-statio
 - **Source:** Yahoo Finance via `yfinance` API
 - **Asset:** BTC-USD (configurable to any ticker)
 - **Granularity:** 1-hour OHLCV candles
-- **Period:** June 2022 – June 2023 (~6,000 data points)
+- **Period:** June 2022 – June 2023
 - **Split:** 80% training / 20% out-of-sample testing
 
 ### Discrete Action Space
@@ -102,12 +102,6 @@ This granularity enables the agent to learn **position sizing** — not just dir
 
 ## Training Dynamics
 
-<div align="center">
-
-![Training Metrics](assets/training_metrics.png)
-
-</div>
-
 ### Training Configuration
 
 | Hyperparameter | Value | Rationale |
@@ -130,24 +124,6 @@ The agent follows an **$\varepsilon$-greedy** policy with exponential decay:
 $$\varepsilon_{t+1} = \max(\varepsilon_{\min},\ \varepsilon_t \times 0.995)$$
 
 This ensures broad market state coverage early in training while converging to a near-deterministic exploitation policy as the Q-network matures.
-
----
-
-## Test Set Performance
-
-<div align="center">
-
-![Test Performance](assets/test_performance.png)
-
-</div>
-
-<div align="center">
-
-![Metrics](assets/metrics_card.png)
-
-</div>
-
-The agent is evaluated on **unseen market data** (the final 20% of the time series) with exploration disabled (`ε = 0`), measuring pure learned policy quality.
 
 ---
 
@@ -192,12 +168,9 @@ pip install tensorflow numpy pandas matplotlib gym yfinance
 
 ### Run Training & Testing
 
-```python
-# Via Jupyter Notebook (recommended for visualization)
+```bash
+# Via Jupyter Notebook
 jupyter notebook "deep-q-learning-for-cryptocurrency-trading.ipynb"
-
-# Via Python script
-python "DQN cryptocurrency Trader.py"
 ```
 
 ### Configure for Different Assets
@@ -220,7 +193,7 @@ end_date   = "2024-01-01"
 | Decision | Alternative Considered | Why This Choice |
 |----------|----------------------|-----------------|
 | Conv1D over LSTM | LSTMs are standard for sequences | Conv1D captures local patterns with fewer parameters and faster training; financial micro-patterns are often fixed-width |
-| Double DQN over Vanilla DQN | Simpler implementation | Eliminates Q-value overestimation — critical in noisy financial data |
+| Double DQN over Vanilla DQN | Simpler implementation | Reduces Q-value overestimation — critical in noisy financial data |
 | Discrete actions over continuous | Policy gradient methods (DDPG, SAC) | Discrete actions simplify exploration and enable straightforward $\varepsilon$-greedy strategies |
 | Raw prices over technical indicators | RSI, MACD, Bollinger Bands | Lets the network learn its own features; avoids encoding human bias into the state representation |
 | Replay buffer (1M) | On-policy learning | Breaks temporal correlations; enables sample-efficient off-policy learning |
@@ -255,13 +228,24 @@ This formulation naturally incentivizes capital growth while penalizing drawdown
 
 ## Disclaimer
 
-*This project is strictly for **research and educational purposes**. Cryptocurrency markets are highly volatile and unpredictable. The authors bear no responsibility for financial losses incurred by deploying this system in live trading environments. Always conduct thorough due diligence and risk assessment before any trading activity.*
+*This project is strictly for **research and educational purposes**. Cryptocurrency markets are highly volatile and unpredictable. The author bears no responsibility for financial losses incurred by deploying this system in live trading environments. Always conduct thorough due diligence and risk assessment before any trading activity.*
 
 ---
 
 **Built with TensorFlow/Keras** · **OpenAI Gym** · **yfinance**
 
-*For the PyTorch implementation, see my other repositories.*
-
 </div>
+
+---
+
+## Author
+
+**Mohammad Asadolahi** — Senior Agentic AI Engineer
+
+- **GitHub:** [MohammadAsadolahi](https://github.com/MohammadAsadolahi)
+- **Focus:** Agentic AI Architectures In The Wild
+
+---
+
+this readme is AI assisted generated, so check for mistakes
 
